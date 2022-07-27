@@ -1,0 +1,90 @@
+<form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
+  <div *ngFor="let data of formdata">
+    <div class="input-group mb-3" *ngIf="data.type == 'string'">
+      <span class="input-group-text" id="basic-addon1">{{ data.text }}</span>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="{{ data.text }}"
+        aria-label="Username"
+        aria-describedby="basic-addon1"
+        formControlName="{{ data.linkId }}"
+      />
+      <div
+        *ngIf="
+          data.linkId.invalid && (data.linkId.dirty || data.linkId.touched)
+        "
+        class="alert"
+      >
+        {{ data.text }} is required.
+      </div>
+    </div>
+    <div class="input-group mb-3" *ngIf="data.type == 'choice'">
+      <span class="" id="basic-addon1">{{ data.text }}</span>
+
+      <div class="form-check" *ngFor="let item of data.option">
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="{{ data.linkId }}"
+            value="{{ item.valueCoding.code }}"
+            formControlName="{{ data.linkId }}"
+          />
+          <label class="form-check-label" for="exampleRadios1">
+            {{ item.valueCoding.display }}</label
+          >
+        </div>
+      </div>
+      <div
+        *ngIf="
+          data.linkId.invalid && (data.linkId.dirty || data.linkId.touched)
+        "
+        class="alert"
+      >
+        {{ data.text }} is required.
+      </div>
+    </div>
+    <div class="input-group mb-3" *ngIf="data.type == 'boolean'">
+      <span class="input-group-text" id="basic-addon1">{{ data.text }}</span>
+      <input
+        type="checkbox"
+        class="form-check-input"
+        placeholder="{{ data.text }}"
+        aria-label="Username"
+        aria-describedby="basic-addon1"
+        formControlName="{{ data.linkId }}"
+      />
+      <div
+        *ngIf="
+          data.linkId.invalid && (data.linkId.dirty || data.linkId.touched)
+        "
+        class="alert"
+      >
+        {{ data.text }} is required.
+      </div>
+    </div>
+    <div class="input-group mb-3" *ngIf="data.type == 'date'">
+      <span class="input-group-text" id="basic-addon1">{{ data.text }}</span>
+      <input
+        type="date"
+        class="form-control"
+        placeholder="{{ data.text }}"
+        aria-describedby="basic-addon1"
+        formControlName="{{ data.linkId }}"
+      />
+      <div
+        *ngIf="
+          data.linkId.invalid && (data.linkId.dirty || data.linkId.touched)
+        "
+        class="alert"
+      >
+        {{ data.text }} is required.
+      </div>
+    </div>
+  </div>
+  <div>{{ dynamicForm.value | json }}</div>
+  <button type="submit">submit</button>
+</form>
+
+<router-outlet></router-outlet>
